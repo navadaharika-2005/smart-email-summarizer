@@ -1,3 +1,7 @@
 streamlit
 transformers
 torch
+google-api-python-client
+google-auth
+google-auth-oauthlib
+beautifulsoup4
