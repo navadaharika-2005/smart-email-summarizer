@@ -1,0 +1,13 @@
+# Private Gmail authorization files
+credentials.json
+token.json
+
+# Python temporary files
+__pycache__/
+*.pyc
+
+# Local virtual environments
+venv/
+.venv/
+credentials.json
+token.json
