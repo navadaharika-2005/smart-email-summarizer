@@ -1,6 +1,8 @@
 import os
 import base64
 import re
+import json
+import streamlit as st
 from html import unescape
 
 from google.auth.transport.requests import Request
@@ -16,40 +18,44 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CREDENTIALS_FILE = os.path.join(BASE_DIR, "credentials.json")
 TOKEN_FILE = os.path.join(BASE_DIR, "token.json")
 
-
 def connect_gmail():
     creds = None
 
+    # Try local token first
     if os.path.exists(TOKEN_FILE):
         creds = Credentials.from_authorized_user_file(
             TOKEN_FILE,
             SCOPES
         )
 
+    # If there is no valid local token, use Streamlit Secrets
     if not creds or not creds.valid:
 
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
 
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                CREDENTIALS_FILE,
+            if "google_token" not in st.secrets:
+                raise FileNotFoundError(
+                    "Google authentication credentials are not configured "
+                    "in Streamlit Secrets."
+                )
+
+            token_info = dict(st.secrets["google_token"])
+
+            creds = Credentials.from_authorized_user_info(
+                token_info,
                 SCOPES
             )
 
-            creds = flow.run_local_server(port=0)
+            if creds.expired and creds.refresh_token:
+                creds.refresh(Request())
 
-        with open(TOKEN_FILE, "w") as token:
-            token.write(creds.to_json())
-
-    service = build(
+    return build(
         "gmail",
         "v1",
         credentials=creds
     )
-
-    return service
-
 
 def get_emails(service, max_results=10):
 
