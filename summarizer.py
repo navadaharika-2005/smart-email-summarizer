@@ -23,6 +23,7 @@ summary = summarizer(
     max_length=60,
     min_length=20,
     do_sample=False
+    truncation=True
 )
 
 print("\nOriginal Text:")
