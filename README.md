@@ -1,5 +1,9 @@
 # 📧 Smart Email Summarizer
 
+
+## 🚀 Live Demo
+
+[Open the Smart Email Summarizer](https://smart-email-summarizer-8k5cs3ltg3qsqern3c8kw2.streamlit.app/)
 An AI-powered email analyzer that connects to Gmail, extracts email content, and generates simple summaries.
 
 ## 🚀 Features
