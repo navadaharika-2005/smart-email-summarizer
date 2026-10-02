@@ -129,7 +129,8 @@ if st.session_state.email_text:
                     st.session_state.email_text,
                     max_length=max_len,
                     min_length=min_len,
-                    do_sample=False
+                    do_sample=False,
+                    truncation=True
                 )
 
 
