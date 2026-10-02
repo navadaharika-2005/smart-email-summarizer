@@ -22,7 +22,7 @@ summary = summarizer(
     text,
     max_length=60,
     min_length=20,
-    do_sample=False
+    do_sample=False,
     truncation=True
 )
 

@@ -127,8 +127,8 @@ if st.session_state.email_text:
 
                 result = summarizer(
                     st.session_state.email_text,
-                    max_length=max_len,
-                    min_length=min_len,
+                    max_new_tokens=80,
+                    min_length=20,
                     do_sample=False,
                     truncation=True
                 )
